@@ -283,7 +283,7 @@ def show_compass():
 def show_map():
     global hideLink
     sense.clear()
-    sense.set_pixels(map)
+    sense.set_pixels(dungeon_map)
     hideLink = True;
     time.sleep(1.5)
     hideLink = False;

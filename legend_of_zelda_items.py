@@ -11,7 +11,7 @@ compass = [
     NUL, NUL, NUL, BLU, BLU, NUL, NUL, NUL
 ]
 
-map = [
+dungeon_map = [
     NUL, GRN, NUL, NUL, NUL, NUL, GRN, NUL,
     NUL, GRN, GRN, GRN, GRN, GRN, GRN, NUL,
     NUL, GRN, RED, RED, GRN, RED, GRN, NUL,
