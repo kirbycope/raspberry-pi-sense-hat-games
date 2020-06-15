@@ -1,0 +1,75 @@
+from pixel_art import *
+
+# Dungeon 1 - https://revned77.github.io/maps/The%20Legend%20of%20Zelda%20-%20Link%27s%20Awakening%20DX/Tail%20Cave.png
+
+# Room C:5
+d1_rc5  = [
+    PNK, PNK, PNK, NUL, NUL, PNK, PNK, PNK,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    PNK, NUL, GRY, NUL, NUL, GRY, NUL, NUL,
+    PNK, NUL, GRY, NUL, NUL, GRY, NUL, NUL,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    PNK, PNK, PNK, PNK, PNK, PNK, PNK, PNK
+]
+
+# Room D:5
+d1_rd5 = [
+    PNK, PNK, PNK, PNK, PNK, PNK, PNK, PNK,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    NUL, NUL, BLK, NUL, NUL, BLK, NUL, NUL,
+    NUL, NUL, BLK, BLK, BLK, BLK, NUL, NUL,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    PNK, YEL, NUL, NUL, NUL, NUL, YEL, PNK,
+    PNK, PNK, PNK, NUL, NUL, PNK, PNK, PNK
+]
+
+# Room E:5
+d1_re5 = [
+    PNK, PNK, PNK, NUL, NUL, PNK, PNK, PNK,
+    PNK, NUL, YEL, NUL, NUL, YEL, NUL, PNK,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    NUL, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    NUL, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    PNK, NUL, BLK, NUL, NUL, BLK, NUL, PNK,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    PNK, PNK, PNK, PNK, PNK, PNK, PNK, PNK
+]
+
+# Room B:6
+d1_rb6 = [
+    PNK, PNK, PNK, PNK, PNK, PNK, PNK, PNK,
+    PNK, YEL, NUL, NUL, NUL, YEL, PNK, PNK,
+    PNK, NUL, NUL, NUL, NUL, NUL, PNK, PNK,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, NUL,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, NUL,
+    PNK, NUL, NUL, NUL, NUL, NUL, PNK, PNK,
+    PNK, YEL, NUL, NUL, NUL, YEL, PNK, PNK,
+    PNK, PNK, PNK, PNK, PNK, PNK, PNK, PNK
+]
+
+# Room C:6
+d1_rc6 = [
+    PNK, PNK, PNK, PNK, PNK, PNK, PNK, PNK,
+    PNK, PNK, PNK, PNK, PNK, PNK, PNK, PNK,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL,
+    NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    PNK, PNK, PNK, PNK, PNK, PNK, PNK, PNK,
+    PNK, PNK, PNK, PNK, PNK, PNK, PNK, PNK
+]
+
+# Room D:6 (Entrance/Exit)
+d1_rd6 = [
+    PNK, PNK, PNK, NUL, NUL, PNK, PNK, PNK,
+    PNK, YEL, NUL, NUL, NUL, NUL, YEL, PNK,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    NUL, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    NUL, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
+    PNK, YEL, NUL, NUL, NUL, NUL, YEL, PNK,
+    PNK, PNK, PNK, NUL, NUL, PNK, PNK, PNK
+]

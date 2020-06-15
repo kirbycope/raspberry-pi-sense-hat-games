@@ -1,0 +1,34 @@
+from pixel_art import *
+
+compass = [
+    NUL, NUL, NUL, BLU, BLU, NUL, NUL, NUL,
+    NUL, NUL, BLU, LBU, LBU, BLU, NUL, NUL,
+    NUL, BLU, LBU, LBU, RED, LBU, BLU, NUL,
+    BLU, LBU, LBU, LBU, RED, LBU, LBU, BLU,
+    BLU, LBU, LBU, BLK, LBU, LBU, LBU, BLU,
+    NUL, BLU, LBU, BLK, LBU, LBU, BLU, NUL,
+    NUL, NUL, BLU, LBU, LBU, BLU, NUL, NUL,
+    NUL, NUL, NUL, BLU, BLU, NUL, NUL, NUL
+]
+
+map = [
+    NUL, GRN, NUL, NUL, NUL, NUL, GRN, NUL,
+    NUL, GRN, GRN, GRN, GRN, GRN, GRN, NUL,
+    NUL, GRN, RED, RED, GRN, RED, GRN, NUL,
+    NUL, GRN, GRN, RED, RED, RED, GRN, NUL,
+    NUL, GRN, GRN, RED, RED, RED, GRN, NUL,
+    NUL, GRN, RED, RED, GRN, GRN, GRN, NUL,
+    NUL, GRN, GRN, GRN, GRN, GRN, GRN, NUL,
+    NUL, GRN, NUL, NUL, NUL, NUL, GRN, NUL
+]
+
+small_key = [
+    NUL, NUL, SLV, SLV, SLV, NUL, NUL, NUL,
+    NUL, SLV, NUL, NUL, NUL, SLV, NUL, NUL,
+    NUL, SLV, NUL, NUL, NUL, SLV, NUL, NUL,
+    NUL, NUL, SLV, SLV, SLV, NUL, NUL, NUL,
+    NUL, NUL, NUL, SLV, NUL, NUL, NUL, NUL,
+    NUL, NUL, NUL, SLV, SLV, NUL, NUL, NUL,
+    NUL, NUL, NUL, SLV, NUL, NUL, NUL, NUL,
+    NUL, NUL, NUL, SLV, SLV, NUL, NUL, NUL
+]
