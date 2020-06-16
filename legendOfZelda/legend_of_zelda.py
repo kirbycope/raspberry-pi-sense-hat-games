@@ -20,6 +20,9 @@ d1_rc6_unlocked = False
 d1_compass = False
 d1_map = False
 
+def clamp(value, min_value=0, max_value=7):
+    return min(max_value, max(min_value, value))
+
 def check_doorway():
     global currentMap, linkXPosition, linkYPosition
     if currentMap == "d1_rc5":
@@ -129,7 +132,6 @@ def check_doorway():
                 # Move Link (Link will be drawn in the next playerThread cycle)
                 linkXPosition = 1
 
-# Returns true if there is a RGB value assigned to the given pixel
 def check_pixel(x, y):
     global smallKeys, hideLink
     global d1_rd5_floor, d1_rd5_key, d1_rc6_key, d1_rc6_unlocked, d1_compass, d1_map
@@ -171,18 +173,35 @@ def check_pixel(x, y):
         print()
     return returnValue
 
-def clamp(value, min_value=0, max_value=7):
-    return min(max_value, max(min_value, value))
+# Removes the event listeners for the Sense Hat joystick
+def disable_controls():
+    sense.stick.direction_down = None
+    sense.stick.direction_left = None
+    sense.stick.direction_right = None
+    sense.stick.direction_up = None
+    sense.stick.direction_any = None
+    sense.stick.direction_middle = None
 
+# Sets the event listeners for the Sense Hat joystick
+def enable_controls():
+    sense.stick.direction_down = pushed_down
+    sense.stick.direction_left = pushed_left
+    sense.stick.direction_right = pushed_right
+    sense.stick.direction_up = pushed_up
+    sense.stick.direction_any = pushed_any
+
+# Sets pixel to green based on Link's coordinates
 def draw_link():
     if hideLink == False:
-        sense.set_pixel(linkXPosition, linkYPosition, 0, 255, 0)
+        sense.set_pixel(linkXPosition, linkYPosition, GRN)
 
+# Sets pixels based on the current map
 def draw_map():
     # Get the map variable using the map name
-    result = getattr(legend_of_zelda_maps, currentMap)
+    #result = getattr(legend_of_zelda_maps, currentMap)
     # Draw the map (Link will be drawn in the next playerThread cycle)
-    sense.set_pixels(result)
+    #sense.set_pixels(result)
+    sense.load_image("legendOfZelda/img/" + currentMap + ".bmp")
     # Add item(s)
     if currentMap == "d1_rd5":
         # Floor Switch
@@ -263,46 +282,44 @@ def pushed_up(event):
             # Set the new position
             linkYPosition = clamp(linkYPosition - 1)
 
-def setup_controls():
-    # Move
-    sense.stick.direction_down = pushed_down
-    sense.stick.direction_left = pushed_left
-    sense.stick.direction_right = pushed_right
-    sense.stick.direction_up = pushed_up
-    sense.stick.direction_any = pushed_any
-
 def show_compass():
     global hideLink
     sense.clear()
     sense.set_pixels(compass)
-    hideLink = True;
+    hideLink = True
+    disable_controls()
     time.sleep(1.5)
-    hideLink = False;
+    hideLink = False
+    enable_controls()
     draw_map()
 
 def show_map():
     global hideLink
     sense.clear()
     sense.set_pixels(dungeon_map)
-    hideLink = True;
+    hideLink = True
+    disable_controls()
     time.sleep(1.5)
-    hideLink = False;
+    hideLink = False
+    enable_controls()
     draw_map()
 
 def show_small_key():
     global hideLink
     sense.clear()
     sense.set_pixels(small_key)
-    hideLink = True;
+    hideLink = True
+    disable_controls()
     time.sleep(1.5)
-    hideLink = False;
+    hideLink = False
+    enable_controls()
     draw_map()
 
 def start():
     global currentMap
     sense.clear()
-    setup_controls()
-    currentMap = "d1_rd6"
+    enable_controls()
+    currentMap = "d1_d5"
     draw_map()
     player_thread()
 

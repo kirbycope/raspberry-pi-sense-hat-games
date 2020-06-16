@@ -37,17 +37,6 @@ snake = [
     RED, NUL, NUL, NUL, NUL, NUL, NUL, NUL
 ]
 
-link = [
-    NUL, GRN, GRN, GRN, GRN, NUL, SLV, NUL,
-    NUL, GRN, GRN, GRN, GRN, NUL, SLV, NUL,
-    NUL, TAN, BLK, TAN, BLK, NUL, SLV, NUL,
-    NUL, TAN, TAN, TAN, TAN, NUL, SLV, NUL,
-    BRN, BRN, GRN, GRN, GRN, BLU, BLU, BLU,
-    BRN, BRN, GRN, GRN, GRN, TAN, TAN, NUL,
-    BRN, BRN, GRN, GRN, GRN, NUL, BLU, NUL,
-    NUL, BLK, NUL, NUL, BLK, NUL, NUL, NUL
-]
-
 kirby = [
     NUL, NUL, NUL, LPK, LPK, LPK, NUL, NUL,
     NUL, NUL, LPK, NUL, LPK, NUL, LPK, NUL,
@@ -68,70 +57,4 @@ fallout_boy = [
     TAN, BLU, BLU, YEL, BLU, BLU, NUL, BRN,
     NUL, BLU, BLU, GLD, BLU, BLU, NUL, NUL,
     NUL, BLK, NUL, NUL, NUL, BLK, NUL, NUL
-]
-
-si_sm_squid_0 = [
-    NUL, NUL, NUL, PNK, PNK, NUL, NUL, NUL,
-    NUL, NUL, PNK, PNK, PNK, PNK, NUL, NUL,
-    NUL, PNK, PNK, PNK, PNK, PNK, PNK, NUL,
-    PNK, PNK, NUL, PNK, PNK, NUL, PNK, PNK,
-    PNK, PNK, PNK, PNK, PNK, PNK, PNK, PNK,
-    NUL, NUL, PNK, NUL, NUL, PNK, NUL, NUL,
-    NUL, PNK, NUL, PNK, PNK, NUL, PNK, NUL,
-    PNK, NUL, PNK, NUL, NUL, PNK, NUL, PNK
-]
-
-si_sm_squid_1 = [
-    NUL, NUL, NUL, PNK, PNK, NUL, NUL, NUL,
-    NUL, NUL, PNK, PNK, PNK, PNK, NUL, NUL,
-    NUL, PNK, PNK, PNK, PNK, PNK, PNK, NUL,
-    PNK, PNK, NUL, PNK, PNK, NUL, PNK, PNK,
-    PNK, PNK, PNK, PNK, PNK, PNK, PNK, PNK,
-    NUL, PNK, NUL, PNK, PNK, NUL, PNK, NUL,
-    PNK, NUL, NUL, NUL, NUL, NUL, NUL, PNK,
-    NUL, PNK, NUL, NUL, NUL, NUL, PNK, NUL
-]
-
-si_med_crab_0 = [
-    NUL, BLU, NUL, NUL, NUL, NUL, BLU, NUL,
-    NUL, NUL, BLU, NUL, NUL, BLU, NUL, NUL,
-    NUL, BLU, BLU, BLU, BLU, BLU, BLU, NUL,
-    BLU, BLU, NUL, BLU, BLU, NUL, BLU, BLU,
-    BLU, BLU, BLU, BLU, BLU, BLU, BLU, BLU,
-    NUL, BLU, BLU, BLU, BLU, BLU, BLU, NUL,
-    NUL, BLU, NUL, NUL, NUL, NUL, BLU, NUL,
-    NUL, NUL, BLU, NUL, NUL, BLU, NUL, NUL
-]
-
-si_med_crab_1 = [
-    NUL, BLU, NUL, NUL, NUL, NUL, BLU, NUL,
-    NUL, NUL, BLU, NUL, NUL, BLU, NUL, NUL,
-    NUL, BLU, BLU, BLU, BLU, BLU, BLU, NUL,
-    BLU, BLU, NUL, BLU, BLU, NUL, BLU, BLU,
-    BLU, BLU, BLU, BLU, BLU, BLU, BLU, BLU,
-    NUL, BLU, BLU, BLU, BLU, BLU, BLU, NUL,
-    NUL, NUL, BLU, NUL, NUL, BLU, NUL, NUL,
-    NUL, BLU, NUL, NUL, NUL, NUL, BLU, NUL
-]
-
-si_lrg_octopus_0 = [
-    NUL, NUL, NUL, YEL, YEL, NUL, NUL, NUL,
-    NUL, YEL, YEL, YEL, YEL, YEL, YEL, NUL,
-    YEL, YEL, YEL, YEL, YEL, YEL, YEL, YEL,
-    YEL, NUL, NUL, YEL, YEL, NUL, NUL, YEL,
-    YEL, YEL, YEL, YEL, YEL, YEL, YEL, YEL,
-    NUL, NUL, YEL, NUL, NUL, YEL, NUL, NUL,
-    NUL, YEL, NUL, YEL, YEL, NUL, YEL, NUL,
-    YEL, NUL, NUL, NUL, NUL, NUL, NUL, YEL
-]
-
-si_lrg_octopus_1 = [
-    NUL, NUL, NUL, YEL, YEL, NUL, NUL, NUL,
-    NUL, YEL, YEL, YEL, YEL, YEL, YEL, NUL,
-    YEL, YEL, YEL, YEL, YEL, YEL, YEL, YEL,
-    YEL, NUL, NUL, YEL, YEL, NUL, NUL, YEL,
-    YEL, YEL, YEL, YEL, YEL, YEL, YEL, YEL,
-    NUL, YEL, YEL, NUL, NUL, YEL, YEL, NUL,
-    YEL, NUL, NUL, YEL, YEL, NUL, NUL, YEL,
-    NUL, YEL, NUL, NUL, NUL, NUL, YEL, NUL
 ]
