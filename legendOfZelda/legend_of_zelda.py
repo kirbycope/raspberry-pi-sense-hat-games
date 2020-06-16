@@ -3,20 +3,19 @@ sense = SenseHat()
 import threading
 import time
 from pixel_art import *
-import legend_of_zelda_maps
 from legend_of_zelda_items import *
 
-# Globals
 playerThread = None
 currentMap = None
 linkXPosition = 3
 linkYPosition = 6
 hideLink = False
+
 smallKeys = 0
-d1_rd5_floor = False
-d1_rd5_key = False
-d1_rc6_key = False
-d1_rc6_unlocked = False
+d1_d4_floor = False
+d1_d4_key = False
+d1_c5_key = False
+d1_c5_unlocked = False
 d1_compass = False
 d1_map = False
 
@@ -25,116 +24,81 @@ def clamp(value, min_value=0, max_value=7):
 
 def check_doorway():
     global currentMap, linkXPosition, linkYPosition
-    if currentMap == "d1_rc5":
-        # Right doorway
-        if linkXPosition == 7:
-            # Middle
-            if linkYPosition == 3 or linkYPosition == 4:
-                # Set new map
-                currentMap = "d1_rd5"
-                # Draw the new map
-                draw_map()
-                # Move Link (Link will be drawn in the next playerThread cycle)
-                linkXPosition = 1
-    if currentMap == "d1_rd5":
-        # Botton doorway
-        if linkYPosition == 7:
-           # Middle
-           if linkXPosition == 3 or linkXPosition == 4:
-                # Set new map
-                currentMap = "d1_rd6"
-                # Draw the new map
-                draw_map()
-                # Move Link (Link will be drawn in the next playerThread cycle)
-                linkYPosition = 1
-        # Left doorway
-        if linkXPosition == 0:
-            # Middle          
-            if linkYPosition == 3 or linkYPosition == 4:
-                # Set new map
-                currentMap = "d1_rc5"
-                # Draw the new map
-                draw_map()
-                # Move Link (Link will be drawn in the next playerThread cycle)
-                linkXPosition = 6
-        # Right doorway
-        if linkXPosition == 7:
-            # Middle
-            if linkYPosition == 3 or linkYPosition == 4:
-                # Set new map
-                currentMap = "d1_re5"
-                # Draw the new map
-                draw_map()
-                # Move Link (Link will be drawn in the next playerThread cycle)
-                linkXPosition = 1               
-    elif currentMap == "d1_re5":
-        # Left doorway
-        if linkXPosition == 0:
-            # Middle          
-            if linkYPosition == 3 or linkYPosition == 4:
-                # Set new map
-                currentMap = "d1_rd5"
-                # Draw the new map
-                draw_map()
-                # Move Link (Link will be drawn in the next playerThread cycle)
-                linkXPosition = 6
-    elif currentMap == "d1_rd6":
-        # Left doorway
-        if linkXPosition == 0:
-            # Middle          
-            if linkYPosition == 3 or linkYPosition == 4:
-                # Set new map
-                currentMap = "d1_rc6"
-                # Draw the new map
-                draw_map()
-                # Move Link (Link will be drawn in the next playerThread cycle)
-                linkXPosition = 6
-        # Top doorway
-        if linkYPosition == 0:
-            # Middle
-            if linkXPosition == 3 or linkXPosition == 4:
-                # Set new map
-                currentMap = "d1_rd5"
-                # Draw the new map
-                draw_map()
-                # Move Link (Link will be drawn in the next playerThread cycle)
-                linkYPosition = 6
-    elif currentMap == "d1_rc6":
-        # Right doorway
-        if linkXPosition == 7:
-            # Middle
-            if linkYPosition == 3 or linkYPosition == 4:
-                # Set new map
-                currentMap = "d1_rd6"
-                # Draw the new map
-                draw_map()
-                # Move Link (Link will be drawn in the next playerThread cycle)
-                linkXPosition = 1
-        # Left doorway
-        elif linkXPosition == 0:
-            # Middle
-            if linkYPosition == 3 or linkYPosition == 4:
-                # Set new map
-                currentMap = "d1_rb6"
-                # Draw the new map
-                draw_map()
-                # Move Link (Link will be drawn in the next playerThread cycle)
-                linkXPosition = 6
-    elif currentMap == "d1_rb6":
-        # Right doorway
-        if linkXPosition == 7:
-            # Middle
-            if linkYPosition == 3 or linkYPosition == 4:
-                # Set new map
-                currentMap = "d1_rc6"
-                # Draw the new map
-                draw_map()
-                # Move Link (Link will be drawn in the next playerThread cycle)
-                linkXPosition = 1
+    dungeon = currentMap[0:2]
+    cell = currentMap[3:]
+    column = cell[0]
+    row = cell[1]
+    print(dungeon + "_" + cell)
+    # Top doorway
+    if linkYPosition == 0:
+        # Middle
+        if linkXPosition == 3 or linkXPosition == 4:
+            # Set new map
+            row = int(row) - 1
+            currentMap = dungeon + "_" + column + str(row)
+            # Draw the new map
+            draw_map()
+            # Move Link (Link will be drawn in the next playerThread cycle)
+            linkYPosition = 6
+    # Botton doorway
+    if linkYPosition == 7:
+        # Middle
+        if linkXPosition == 3 or linkXPosition == 4:
+            # Set new map
+            row = int(row) + 1
+            currentMap = dungeon + "_" + column + str(row)
+            # Draw the new map
+            draw_map()
+            # Move Link (Link will be drawn in the next playerThread cycle)
+            linkYPosition = 1
+    # Right doorway
+    if linkXPosition == 7:
+        # Middle
+        if linkYPosition == 3 or linkYPosition == 4:
+            # Set new map
+            if column == "a":
+                column = "b"
+            elif column == "b":
+                column = "c"
+            elif column == "c":
+                column = "d"
+            elif column == "d":
+                column = "e"
+            elif column == "e":
+                column = "f"
+            elif column == "f":
+                column = "g"
+            currentMap = dungeon + "_" + column + row
+            # Draw the new map
+            draw_map()
+            # Move Link (Link will be drawn in the next playerThread cycle)
+            linkXPosition = 1
+    # Left doorway
+    if linkXPosition == 0:
+        # Middle          
+        if linkYPosition == 3 or linkYPosition == 4:
+            # Set new map
+            if column == "g":
+                column = "f"
+            elif column == "f":
+                column = "e"
+            elif column == "e":
+                column = "d"
+            elif column == "d":
+                column = "c"
+            elif column == "c":
+                column = "b"
+            elif column == "b":
+                column = "a"
+            currentMap = dungeon + "_" + column + row
+            # Draw the new map
+            draw_map()
+            # Move Link (Link will be drawn in the next playerThread cycle)
+            linkXPosition = 6
 
 def check_pixel(x, y):
     global smallKeys, hideLink
-    global d1_rd5_floor, d1_rd5_key, d1_rc6_key, d1_rc6_unlocked, d1_compass, d1_map
+    global d1_d4_floor, d1_d4_key, d1_c5_key, d1_c5_unlocked, d1_compass, d1_map
     returnValue = False
     try:
         rgb = sense.get_pixel(x, y)
@@ -142,30 +106,34 @@ def check_pixel(x, y):
         if rgb == [192, 192, 192]:
             smallKeys = smallKeys + 1
             show_small_key()
-            if currentMap == "d1_rd5":
-                d1_rd5_key = True
-            if currentMap == "d1_rc6":
-                d1_rc6_key = True
+            if currentMap == "d1_d4":
+                d1_d4_key = True
+            if currentMap == "d1_c5":
+                d1_c5_key = True
             returnValue = False
         # Check for item chest
         elif rgb == [128, 128, 0]:
-            if currentMap == "d1_re5":
+            # Dungeon map
+            if currentMap == "d1_e4":
                 d1_map = True
                 show_map()
-            elif currentMap == "d1_rb6":
+            # Compass
+            elif currentMap == "d1_b5":
                 d1_compass = True
                 show_compass()
         # Check for locked door or floor switch
         elif rgb == [144, 72, 0]:
-            if currentMap == "d1_rd5":
-                d1_rd5_floor = True
-                sense.set_pixel(6, 2, 192, 192, 192)
+            if currentMap == "d1_d4":
+                # Set the floor to "switched"
+                d1_d4_floor = True
+                # Show the small key
+                sense.set_pixel(6, 2, SLV)
             if smallKeys > 0:
                 smallKeys = smallKeys - 1
-                if currentMap == "d1_rd5":
-                    d1_rd5_floor == True
-                if currentMap == "d1_rc6":
-                    d1_rc6_unlocked = True
+                if currentMap == "d1_d5":
+                    d1_d4_floor == True
+                if currentMap == "d1_c6":
+                    d1_c6_unlocked = True
                 returnValue = False
         elif rgb != [0, 0, 0]:
             returnValue = True
@@ -190,6 +158,24 @@ def enable_controls():
     sense.stick.direction_up = pushed_up
     sense.stick.direction_any = pushed_any
 
+def draw_doors():
+    if currentMap == "d1_c4":
+        if d1_d4_unlocked == False:
+            sense.set_pixel(0, 3, BRN)
+            sense.set_pixel(0, 4, BRN)
+    if currentMap == "d1_c5":
+        if d1_c5_unlocked == False:
+            sense.set_pixel(0, 3, BRN)
+            sense.set_pixel(0, 4, BRN)
+
+def draw_keys():
+    if currentMap == "d1_c5":
+        if d1_c5_key == False:
+            sense.set_pixel(1, 2, SLV)
+    elif currentMap == "d1_d4":
+        if d1_d4_floor == True and d1_d4_key == False:
+            sense.set_pixel(6, 1, SLV)
+
 # Sets pixel to green based on Link's coordinates
 def draw_link():
     if hideLink == False:
@@ -198,30 +184,21 @@ def draw_link():
 # Sets pixels based on the current map
 def draw_map():
     # Get the map variable using the map name
-    #result = getattr(legend_of_zelda_maps, currentMap)
-    # Draw the map (Link will be drawn in the next playerThread cycle)
-    #sense.set_pixels(result)
     sense.load_image("legendOfZelda/img/" + currentMap + ".bmp")
     # Add item(s)
-    if currentMap == "d1_rd5":
+    draw_doors()
+    draw_keys()
+    if currentMap == "d1_d4":
         # Floor Switch
-        if d1_rd5_floor == False and d1_rd5_key == False:
+        if d1_d4_floor == False and d1_d4_key == False:
             sense.set_pixel(4, 3, BRN)
-        if d1_rd5_floor == True and d1_rd5_key == False:
+        if d1_d4_floor == True and d1_d4_key == False:
             sense.set_pixel(6, 2, SLV)
-    if currentMap == "d1_re5":
+    if currentMap == "d1_e4":
         # Map
         if d1_map == False:
             sense.set_pixel(6, 3, GLD)
-    if currentMap == "d1_rc6":
-        # Small Key
-        if d1_rc6_key == False:
-            sense.set_pixel(2, 3, SLV)
-        # Locked Doors
-        if d1_rc6_unlocked == False:
-            sense.set_pixel(0, 3, BRN)
-            sense.set_pixel(0, 4, BRN)
-    if currentMap == "d1_rb6" and d1_compass == False:
+    if currentMap == "d1_b5" and d1_compass == False:
         # Compass
         sense.set_pixel(3, 3, GLD)
 
