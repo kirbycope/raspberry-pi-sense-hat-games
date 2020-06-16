@@ -159,10 +159,6 @@ def enable_controls():
     sense.stick.direction_any = pushed_any
 
 def draw_doors():
-    if currentMap == "d1_c4":
-        if d1_d4_unlocked == False:
-            sense.set_pixel(0, 3, BRN)
-            sense.set_pixel(0, 4, BRN)
     if currentMap == "d1_c5":
         if d1_c5_unlocked == False:
             sense.set_pixel(0, 3, BRN)
