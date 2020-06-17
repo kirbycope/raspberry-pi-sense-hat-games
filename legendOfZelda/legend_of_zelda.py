@@ -23,14 +23,30 @@ def clamp(value, min_value=0, max_value=7):
 
 def check_doorway():
     global currentMap, linkXPosition, linkYPosition
+    # Exit Tail Cave
     if currentMap == "d1_d5" and linkYPosition == 7:
-        # exit tail cave
-        linkYPosition == 6
+        # Set new map
+        currentMap = "ki_d14"
+        # Draw the new map
+        draw_map()
+        # Move Link
+        linkYPosition = 1
+        # Draw Link
+        draw_link()
+    # Enter Tail Cave
+    elif currentMap == "ki_d14" and linkYPosition == 0:
+        # Set new map
+        currentMap = "d1_d5"
+        # Draw the new map
+        draw_map()
+        # Move Link
+        linkYPosition = 6
+        # Draw Link
+        draw_link()
     else:
         dungeon = currentMap[0:2]
-        cell = currentMap[3:]
-        column = cell[0]
-        row = cell[1]
+        column = currentMap[3]
+        row = currentMap[4:]
         # Top doorway
         if linkYPosition == 0:
             # Set new map
