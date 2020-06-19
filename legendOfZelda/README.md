@@ -16,4 +16,4 @@ An 8x8 pixel version of Link's Awakening.
 ![Alt text](/legendOfZelda/img/d1_d5_60x.bmp?raw=true "Sense Hat Tail Cave dungeon cell D5")
 
 ### Sense Hat (LED) - Tail Cave Dungeon Cell D5
-![Alt text](/legendOfZelda/img/led_d1_d5.bmp_12x?raw=true "Sense Hat (LED) Tail Cave dungeon cell D5")
+![Alt text](/legendOfZelda/img/led_d1_d5_12x.bmp?raw=true "Sense Hat (LED) Tail Cave dungeon cell D5")
