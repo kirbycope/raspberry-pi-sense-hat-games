@@ -1,5 +1,6 @@
 # The Legend of Zelda
-An 8x8 pixel version of Link's Awakening.
+An 8x8 pixel version of Link's Awakening.</br>
+![Alt text](/legendOfZelda/img/led_loz_link_12x.bmp?raw=true "Link")
 
 ## Maps
 
