@@ -18,10 +18,10 @@ WHT = [255, 255, 255] # https://rgbcolorcode.com/color/white
 link = [
     NUL, GRN, GRN, GRN, GRN, NUL, SLV, NUL,
     NUL, GRN, GRN, GRN, GRN, NUL, SLV, NUL,
-    NUL, TAN, BLK, TAN, BLK, NUL, SLV, NUL,
+    NUL, TAN, GRY, TAN, GRY, NUL, SLV, NUL,
     NUL, TAN, TAN, TAN, TAN, NUL, SLV, NUL,
     BRN, BRN, GRN, GRN, GRN, BLU, BLU, BLU,
     BRN, BRN, GRN, GRN, GRN, TAN, TAN, NUL,
     BRN, BRN, GRN, GRN, GRN, NUL, BLU, NUL,
-    NUL, BLK, NUL, NUL, BLK, NUL, NUL, NUL
+    NUL, GRY, NUL, NUL, GRY, NUL, NUL, NUL
 ]
