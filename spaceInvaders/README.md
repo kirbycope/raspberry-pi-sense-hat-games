@@ -18,3 +18,6 @@ Laser Cannon - Protagonist (fires one projectile)</br>
 ## Controls
 Move the Sense Hat 🕹 joystick to move the laser left or right.</br>
 Press in on the Sense Hat 🕹 joystick to fire.
+
+## Demo
+[![Alt text](/spaceInvaders/img/si_cover_demo_video.png?raw=true "Demo video")](/spaceInvaders/img/20200615_100039.mp4?raw=true)
