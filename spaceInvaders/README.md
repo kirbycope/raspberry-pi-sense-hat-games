@@ -12,5 +12,9 @@ Crab - Medium (takes 2 hits)</br>
 Squid - Small (takes 1 hit)</br>
 ![Alt text](/spaceInvaders/img/led_si_sm_squid_0.bmp?raw=true "Cover art")
 
-Laser Cannon - Protagonist</br>
+Laser Cannon - Protagonist (fires one projectile)</br>
 ![Alt text](/spaceInvaders/img/led_si_laser_cannon_0.bmp?raw=true "Cover art")
+
+## Controls
+Move the Sense Hat 🕹 joystick to move the laser left or right.</br>
+Press in on the Sense Hat 🕹 joystick to fire.
