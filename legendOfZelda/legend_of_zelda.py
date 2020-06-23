@@ -1,8 +1,11 @@
-from sense_hat import SenseHat, ACTION_PRESSED, ACTION_RELEASED
-sense = SenseHat()
 import threading
 import time
-from pixel_art import *
+
+from sense_hat import ACTION_PRESSED, ACTION_RELEASED, SenseHat
+
+from pixel_art import BRN, GLD, GRN, NUL, SLV
+
+sense = SenseHat()
 
 playerThread = None
 currentMap = "d1_d5"
@@ -115,7 +118,7 @@ def check_doorway():
 
 # Returns True if there is a colored pixel in the given x, y coordinates.
 def check_pixel(x, y):
-    global smallKeys
+    global currentMap, linkXPosition, linkYPosition, smallKeys
     global d1_d4_floor, d1_d4_key, d1_c5_key, d1_c5_unlocked, d1_compass, d1_map
     # Get the RGB value of the given pixel
     rgb = sense.get_pixel(clamp(x), clamp(y))
@@ -149,6 +152,25 @@ def check_pixel(x, y):
         # Stairs
         elif currentMap == "d1_b1":
             currentMap = "d1_a4"
+            # Draw the new map
+            draw_map()
+            # Move Link
+            linkXPosition = 4
+            linkYPosition = 4
+            # Draw Link
+            draw_link()
+            return True
+        # Stairs
+        elif currentMap == "d1_a4":
+            currentMap = "d1_b1"
+            # Draw the new map
+            draw_map()
+            # Move Link
+            linkXPosition = 6
+            linkYPosition = 2
+            # Draw Link
+            draw_link()
+            return True
         else:
             # Doors
             if smallKeys > 0:
@@ -214,6 +236,7 @@ def draw_map():
     draw_doors()
     draw_floor_switches()
     draw_keys()
+    draw_stairs()
     if currentMap == "d1_e4":
         # Map
         if d1_map == False:
@@ -221,6 +244,12 @@ def draw_map():
     if currentMap == "d1_b5" and d1_compass == False:
         # Compass
         sense.set_pixel(3, 3, GLD)
+
+def draw_stairs():
+    if currentMap == "d1_b1":
+        sense.set_pixel(6, 1, BRN)
+    elif currentMap == "d1_a4":
+        sense.set_pixel(4, 5, BRN)
 
 def player_thread():
     global playerThread
@@ -304,11 +333,7 @@ def pushed_up(event):
 def show_item(itemName):
     disable_controls()
     sense.clear()
-    if itemName.startswith("loz_"):
-        sense.load_image("legendOfZelda/img/" + itemName + ".bmp")
-    else:
-        itemToShow = getattr(legend_of_zelda_items, itemName)
-        sense.set_pixels(itemToShow)
+    sense.load_image("legendOfZelda/img/" + itemName + ".bmp")
     time.sleep(1.5)
     draw_map()
     draw_link()
@@ -333,6 +358,7 @@ def restart():
 
 def start():
     sense.clear()
+    sense.low_light = True
     enable_controls()
     draw_map()
     draw_link()
