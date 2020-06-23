@@ -16,7 +16,6 @@ smallKeys = 0
 d1_d4_floor = False
 d1_d4_key = False
 d1_c5_key = False
-d1_c5_unlocked = False
 d1_compass = False
 d1_map = False
 
@@ -119,7 +118,7 @@ def check_doorway():
 # Returns True if there is a colored pixel in the given x, y coordinates.
 def check_pixel(x, y):
     global currentMap, linkXPosition, linkYPosition, smallKeys
-    global d1_d4_floor, d1_d4_key, d1_c5_key, d1_c5_unlocked, d1_compass, d1_map
+    global d1_d4_floor, d1_d4_key, d1_c5_key, d1_compass, d1_map
     # Get the RGB value of the given pixel
     rgb = sense.get_pixel(clamp(x), clamp(y))
     # Check for key pickup
@@ -175,9 +174,7 @@ def check_pixel(x, y):
             # Doors
             if smallKeys > 0:
                 smallKeys = smallKeys - 1
-                if currentMap == "d1_c5":
-                    draw_link()
-                    d1_c5_unlocked = True
+                # todo: set the unlocked var for the door
             else:
                 return True
     elif rgb != NUL:
@@ -203,10 +200,7 @@ def enable_controls():
     sense.stick.direction_middle = pushed_middle
 
 def draw_doors():
-    if currentMap == "d1_c5":
-        if d1_c5_unlocked == False:
-            sense.set_pixel(0, 3, BRN)
-            sense.set_pixel(0, 4, BRN)
+    print()
 
 def draw_floor_switches():
     if currentMap == "d1_d4":
@@ -219,7 +213,7 @@ def draw_floor_switches():
 def draw_keys():
     if currentMap == "d1_c5":
         if d1_c5_key == False:
-            sense.set_pixel(1, 2, SLV)
+            sense.set_pixel(2, 2, SLV)
     elif currentMap == "d1_d4":
         if d1_d4_floor == True and d1_d4_key == False:
             sense.set_pixel(6, 2, SLV)
@@ -341,7 +335,7 @@ def show_item(itemName):
 
 def restart():
     global playerThread, currentMap, linkXPosition, linkYPosition, hideLink, smallKeys
-    global d1_d4_floor, d1_d4_key, d1_c5_key, d1_c5_unlocked, d1_compass, d1_map
+    global d1_d4_floor, d1_d4_key, d1_c5_key, d1_compass, d1_map
     playerThread = None
     currentMap = "d1_d5"
     linkXPosition = 3
@@ -351,7 +345,6 @@ def restart():
     d1_d4_floor = False
     d1_d4_key = False
     d1_c5_key = False
-    d1_c5_unlocked = False
     d1_compass = False
     d1_map = False
     start()
