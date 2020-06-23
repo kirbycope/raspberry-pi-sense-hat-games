@@ -137,7 +137,7 @@ def check_pixel(x, y):
         elif currentMap == "d1_b5":
             d1_compass = True
             show_item("loz_compass")
-    # Check for locked door or floor switch
+    # Check for locked door, floor switch, or stairs
     elif rgb == BRN or rgb == [144, 72, 0]:
         # Floors
         if currentMap == "d1_d4":
@@ -146,6 +146,9 @@ def check_pixel(x, y):
             if d1_d4_key == False:
                 sense.set_pixel(4, 3, NUL)
                 draw_keys()
+        # Stairs
+        elif currentMap == "d1_b1":
+            currentMap = "d1_a4"
         else:
             # Doors
             if smallKeys > 0:
