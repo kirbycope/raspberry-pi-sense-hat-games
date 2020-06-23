@@ -11,13 +11,23 @@ playerThread = None
 currentMap = "d1_d5"
 linkXPosition = 3
 linkYPosition = 6
-
 smallKeys = 0
+
+#region Dungeon 1 - Tail Cave
+d1_feather = False  # d1_a2
+d1_seashell = False # d1_b3
+d1_compass = False  # d1_b5
+d1_c2_door = False
+d1_c5_key = False
+d1_d2_key = False
+d1_d3_key = False
 d1_d4_floor = False
 d1_d4_key = False
-d1_c5_key = False
-d1_compass = False
+d1_e2_door = False
+d1_e3_door = False
 d1_map = False
+d1_g2_door = False
+#endregion
 
 def clamp(value, min_value=0, max_value=7):
     return min(max_value, max(min_value, value))
@@ -118,6 +128,7 @@ def check_doorway():
 # Returns True if there is a colored pixel in the given x, y coordinates.
 def check_pixel(x, y):
     global currentMap, linkXPosition, linkYPosition, smallKeys
+    global d1_c2_door, d1_e2_door, d1_e3_door, d1_g2_door
     global d1_d4_floor, d1_d4_key, d1_c5_key, d1_compass, d1_map
     # Get the RGB value of the given pixel
     rgb = sense.get_pixel(clamp(x), clamp(y))
@@ -141,8 +152,8 @@ def check_pixel(x, y):
             show_item("loz_compass")
     # Check for locked door, floor switch, or stairs
     elif rgb == BRN or rgb == [144, 72, 0]:
-        # Floors
-        if currentMap == "d1_d4":
+        # Floor Switch
+        if currentMap == "d1_d4" and d1_d4_floor == False:
             # Set the floor to "switched"
             d1_d4_floor = True
             if d1_d4_key == False:
@@ -170,13 +181,33 @@ def check_pixel(x, y):
             # Draw Link
             draw_link()
             return True
-        else:
-            # Doors
+        # Door
+        elif currentMap == "d1_c2" and d1_c2_door == False:
             if smallKeys > 0:
                 smallKeys = smallKeys - 1
-                # todo: set the unlocked var for the door
+                d1_c2_door = True
             else:
                 return True
+        elif currentMap == "d1_e2" and d1_e2_door == False:
+            if smallKeys > 0:
+                smallKeys = smallKeys - 1
+                d1_e2_door = True
+            else:
+                return True
+        elif currentMap == "d1_e3" and d1_e3_door == False:
+            if smallKeys > 0:
+                smallKeys = smallKeys - 1
+                d1_e3_door = True
+            else:
+                return True
+        elif currentMap == "d1_g2" and d1_g2_door == False:
+            if smallKeys > 0:
+                smallKeys = smallKeys - 1
+                d1_g2_door = True
+            else:
+                return True
+        else:
+            return True
     elif rgb != NUL:
         return True
     return False
@@ -198,12 +229,31 @@ def enable_controls():
     sense.stick.direction_middle = pushed_middle
 
 def draw_doors():
-    if currentMap == "d1_c2":
-        sense.set_pixel(3, 0, BRN)
-        sense.set_pixel(4, 0, BRN)
-    if currentMap == "d1_e3":
-        sense.set_pixel(7, 3, BRN)
-        sense.set_pixel(7, 4, BRN)
+    doorToDraw = None
+    # Check for Door to Draw
+    if currentMap == "d1_c2" and d1_c2_door == False:
+        doorToDraw = "topMiddle"
+    elif currentMap == "d1_e2" and d1_e2_door == False:
+        sense.set_pixel(2, 4, BRN)
+        sense.set_pixel(3, 4, BRN)
+    elif currentMap == "d1_e3" and d1_e3_door == False:
+        doorToDraw = "rightMiddle"
+    elif currentMap == "d1_g2" and d1_g2_door == False:
+        doorToDraw = "topMiddle"
+    # Draw Door
+    if doorToDraw != None:
+        if doorToDraw == "topMiddle":
+            sense.set_pixel(3, 0, BRN)
+            sense.set_pixel(4, 0, BRN)
+        elif doorToDraw == "rightMiddle":
+            sense.set_pixel(7, 3, BRN)
+            sense.set_pixel(7, 4, BRN)
+        elif doorToDraw == "bottomMiddle":
+            sense.set_pixel(3, 7, BRN)
+            sense.set_pixel(4, 7, BRN)
+        elif doorToDraw == "leftMiddle":
+            sense.set_pixel(0, 3, BRN)
+            sense.set_pixel(4, 4, BRN)
 
 def draw_floor_switches():
     if currentMap == "d1_d4":
