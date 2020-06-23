@@ -187,7 +187,6 @@ def disable_controls():
     sense.stick.direction_left = None
     sense.stick.direction_right = None
     sense.stick.direction_up = None
-    sense.stick.direction_any = None
     sense.stick.direction_middle = None
 
 # Sets the event listeners for the Sense Hat joystick
@@ -196,11 +195,15 @@ def enable_controls():
     sense.stick.direction_left = pushed_left
     sense.stick.direction_right = pushed_right
     sense.stick.direction_up = pushed_up
-    sense.stick.direction_any = pushed_any
     sense.stick.direction_middle = pushed_middle
 
 def draw_doors():
-    print()
+    if currentMap == "d1_c2":
+        sense.set_pixel(3, 0, BRN)
+        sense.set_pixel(4, 0, BRN)
+    if currentMap == "d1_e3":
+        sense.set_pixel(7, 3, BRN)
+        sense.set_pixel(7, 4, BRN)
 
 def draw_floor_switches():
     if currentMap == "d1_d4":
@@ -224,8 +227,11 @@ def draw_link():
 
 # Sets pixels based on the current map
 def draw_map():
-    # Get the map variable using the map name
-    sense.load_image("legendOfZelda/img/" + currentMap + ".bmp")
+    try:
+        # Get the map variable using the map name
+        sense.load_image("legendOfZelda/img/" + currentMap + ".bmp")
+    except:
+        restart()
     # Add item(s)
     draw_doors()
     draw_floor_switches()
@@ -249,9 +255,6 @@ def player_thread():
     global playerThread
     playerThread = threading.Timer(0.1, player_thread)
     playerThread.start()
-
-def pushed_any(event):
-    print()
 
 def pushed_down(event):
     global linkYPosition
@@ -288,7 +291,8 @@ def pushed_left(event):
             draw_link()
 
 def pushed_middle(event):
-    restart()
+    #restart()
+    print()
 
 def pushed_right(event):
     global linkXPosition
@@ -350,6 +354,7 @@ def restart():
     start()
 
 def start():
+    show_item("loz_link")
     sense.clear()
     sense.low_light = True
     enable_controls()
