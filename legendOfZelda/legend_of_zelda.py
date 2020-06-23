@@ -3,7 +3,6 @@ sense = SenseHat()
 import threading
 import time
 from pixel_art import *
-import legend_of_zelda_items
 
 playerThread = None
 currentMap = "d1_d5"
@@ -127,17 +126,17 @@ def check_pixel(x, y):
             d1_d4_key = True
         if currentMap == "d1_c5":
             d1_c5_key = True
-        show_item("Loz_small_key.bmp")
+        show_item("loz_small_key")
     # Check for item chest
     elif rgb == GLD:
         # Dungeon map
         if currentMap == "d1_e4":
             d1_map = True
-            show_item("loz_dungeon_map.bmp")
+            show_item("loz_dungeon_map")
         # Compass
         elif currentMap == "d1_b5":
             d1_compass = True
-            show_item("loz_compass.bmp")
+            show_item("loz_compass")
     # Check for locked door or floor switch
     elif rgb == BRN or rgb == [144, 72, 0]:
         # Floors
@@ -302,7 +301,7 @@ def pushed_up(event):
 def show_item(itemName):
     disable_controls()
     sense.clear()
-    if itemName.endswith(".bmp"):
+    if itemName.startswith("loz_"):
         sense.load_image("legendOfZelda/img/" + itemName + ".bmp")
     else:
         itemToShow = getattr(legend_of_zelda_items, itemName)
