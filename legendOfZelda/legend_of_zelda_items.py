@@ -12,14 +12,14 @@ compass = [
 ]
 
 dungeon_map = [
-    NUL, GRN, NUL, NUL, NUL, NUL, GRN, NUL,
-    NUL, GRN, GRN, GRN, GRN, GRN, GRN, NUL,
-    NUL, GRN, RED, RED, GRN, RED, GRN, NUL,
-    NUL, GRN, GRN, RED, RED, RED, GRN, NUL,
-    NUL, GRN, GRN, RED, RED, RED, GRN, NUL,
-    NUL, GRN, RED, RED, GRN, GRN, GRN, NUL,
-    NUL, GRN, GRN, GRN, GRN, GRN, GRN, NUL,
-    NUL, GRN, NUL, NUL, NUL, NUL, GRN, NUL
+    BRN, BRN, BRN, BRN, BRN, BRN, BRN, BRN,
+    PNK, PNK, BRN, BRN, BRN, BRN, PNK, BRN,
+    BRN, PNK, PNK, PNK, BRN, BRN, PNK, BRN,
+    PNK, BRN, PNK, PNK, PNK, PNK, PNK, BRN,
+    PNK, PNK, PNK, PNK, PNK, PNK, PNK, BRN,
+    PNK, BRN, PNK, PNK, PNK, BRN, BRN, BRN,
+    BRN, PNK, PNK, PNK, BRN, PNK, PNK, BRN,
+    BRN, BRN, BRN, BRN, BRN, BRN, BRN, BRN
 ]
 
 small_key = [

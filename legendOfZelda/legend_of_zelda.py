@@ -127,17 +127,17 @@ def check_pixel(x, y):
             d1_d4_key = True
         if currentMap == "d1_c5":
             d1_c5_key = True
-        show_item("small_key")
+        show_item("Loz_small_key.bmp")
     # Check for item chest
     elif rgb == GLD:
         # Dungeon map
         if currentMap == "d1_e4":
             d1_map = True
-            show_item("dungeon_map")
+            show_item("loz_dungeon_map.bmp")
         # Compass
         elif currentMap == "d1_b5":
             d1_compass = True
-            show_item("compass")
+            show_item("loz_compass.bmp")
     # Check for locked door or floor switch
     elif rgb == BRN or rgb == [144, 72, 0]:
         # Floors
@@ -300,10 +300,13 @@ def pushed_up(event):
             draw_link()
 
 def show_item(itemName):
-    sense.clear()
-    itemToShow = getattr(legend_of_zelda_items, itemName)
     disable_controls()
-    sense.set_pixels(itemToShow)
+    sense.clear()
+    if itemName.endswith(".bmp"):
+        sense.load_image("legendOfZelda/img/" + itemName + ".bmp")
+    else:
+        itemToShow = getattr(legend_of_zelda_items, itemName)
+        sense.set_pixels(itemToShow)
     time.sleep(1.5)
     draw_map()
     draw_link()
