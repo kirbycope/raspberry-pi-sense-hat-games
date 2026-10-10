@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>Sense HAT Games</title>
+<meta name="description" content="Space Invaders and a Link's Awakening dungeon on a Raspberry Pi Sense HAT's 8x8 LEDs, running in your browser.">
+<style>
+  :root {
+    --bg: #0d1a14; --bg2: #16352a; --text: #e7f3ec; --muted: #9dbbaa; --accent: #6fe0a2;
+    --pcb: #0b6b3a; --pcb-edge: #08502b; --off: #1f1f1f; --gold: #c9a557;
+    --cell: min(44px, calc((100vw - 76px) / 9.8));
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background: radial-gradient(ellipse at 50% 35%, var(--bg2), var(--bg) 70%) fixed;
+    color: var(--text); font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: flex; flex-direction: column; align-items: center; padding: 16px;
+    -webkit-user-select: none; user-select: none; touch-action: manipulation;
+  }
+  h1 { margin: 8px 0 2px; font-size: clamp(24px, 6vw, 38px); letter-spacing: 1px; color: var(--accent); }
+  .sub { margin: 0 0 16px; color: var(--muted); text-align: center; }
+  .games { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; }
+  .games button, .restart {
+    font: inherit; color: var(--text); background: #173a2b; border: 2px solid #2d6a4d;
+    border-radius: 20px; padding: 9px 20px; cursor: pointer;
+  }
+  .games button.on { border-color: var(--accent); background: #1f5a3f; }
+  .board {
+    position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 28px;
+    background: var(--pcb); border: 3px solid var(--pcb-edge); border-radius: 14px; padding: 30px 34px;
+    box-shadow: 0 18px 40px rgba(0,0,0,.5);
+  }
+  .hole { position: absolute; width: 16px; height: 16px; border-radius: 50%;
+          background: radial-gradient(circle, #111 40%, var(--gold) 45%); }
+  .hole.tl { top: 8px; left: 8px; } .hole.tr { top: 8px; right: 8px; }
+  .hole.bl { bottom: 8px; left: 8px; } .hole.br { bottom: 8px; right: 8px; }
+  .matrix { display: grid; grid-template-columns: repeat(8, var(--cell)); gap: calc(var(--cell) * .18);
+            background: #111; padding: calc(var(--cell) * .25); border-radius: 6px; position: relative; }
+  .led { width: var(--cell); height: var(--cell); background: var(--off); border-radius: 4px;
+         box-shadow: inset 0 0 0 2px #2b2b2b; }
+  #status { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            text-align: center; color: var(--muted); font-size: 15px; background: rgba(10,10,10,.75); border-radius: 6px; padding: 12px; }
+  .side { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .label { font-weight: 700; color: #e8f5ec; }
+  .stick { position: relative; width: 150px; height: 150px; border-radius: 50%; background: #0a5a31;
+           border: 2px solid #0e7c44; }
+  .pad { position: absolute; width: 44px; height: 44px; border-radius: 50%; background: #d9d9d9;
+         border: 2px solid #8a8a8a; color: #333; font: 700 16px system-ui; cursor: pointer; touch-action: none;
+         display: flex; align-items: center; justify-content: center; padding: 0; }
+  .pad.down { background: #ffd678; }
+  .pad.up { left: 53px; top: 6px; } .pad.down-dir { left: 53px; bottom: 6px; }
+  .pad.left { left: 6px; top: 53px; } .pad.right { right: 6px; top: 53px; }
+  .pad.middle { left: 50px; top: 50px; width: 50px; height: 50px; }
+  @media (max-width: 560px) {
+    body { padding: 12px 8px; }
+    .board { padding: 22px 14px; gap: 18px; }
+  }
+  .help { max-width: 620px; color: var(--muted); font-size: 14px; line-height: 1.7; text-align: center; margin-top: 18px; }
+  .help b { color: var(--text); }
+  .help a { color: var(--accent); }
+</style>
+</head>
+<body>
+  <h1>Sense HAT Games</h1>
+  <p class="sub">Two games for a Raspberry Pi Sense HAT's 8x8 LEDs, running here in your browser</p>
+
+  <div class="games">
+    <button data-game="spaceInvaders">Space Invaders</button>
+    <button data-game="legendOfZelda">The Legend of Zelda</button>
+  </div>
+
+  <div class="board">
+    <i class="hole tl"></i><i class="hole tr"></i><i class="hole bl"></i><i class="hole br"></i>
+    <div class="matrix" id="matrix"><div id="status">Pick a game</div></div>
+    <div class="side">
+      <span class="label">Sense HAT</span>
+      <div class="stick">
+        <button class="pad up" data-dir="up" aria-label="Up">&#9650;</button>
+        <button class="pad left" data-dir="left" aria-label="Left">&#9664;</button>
+        <button class="pad middle" data-dir="middle" aria-label="Press">&#9679;</button>
+        <button class="pad right" data-dir="right" aria-label="Right">&#9654;</button>
+        <button class="pad down-dir" data-dir="down" aria-label="Down">&#9660;</button>
+      </div>
+      <button class="restart" id="restart">Restart</button>
+    </div>
+  </div>
+
+  <p class="help">
+    The <b>arrow keys</b> move the joystick and <b>Enter</b> or <b>Space</b> presses it in, or use the joystick on the board.<br>
+    <b>Space Invaders:</b> move left and right, press in to fire. Clear all six invaders.<br>
+    <b>The Legend of Zelda:</b> walk Link through Tail Cave from Link's Awakening, pick up keys and open doors.<br>
+    These are the original Python games, run unchanged by <a href="https://pyodide.org">Pyodide</a> against a stand-in for the
+    Sense HAT library.<br>
+    <a href="https://github.com/kirbycope/raspberry-pi-sense-hat-games">Source on GitHub</a>
+  </p>
+
+<script>
+  const matrix = document.getElementById("matrix");
+  const status = document.getElementById("status");
+  const cells = [];
+  for (let i = 0; i < 64; i++) {
+    const c = document.createElement("div");
+    c.className = "led";
+    matrix.insertBefore(c, status);
+    cells.push(c);
+  }
+
+  let worker = null, game = null;
+  function start(folder) {
+    if (worker) worker.terminate();
+    game = folder;
+    document.querySelectorAll(".games button").forEach(b => b.classList.toggle("on", b.dataset.game === folder));
+    cells.forEach(c => c.style.background = "");
+    status.textContent = "Loading Python...";
+    status.style.display = "flex";
+    worker = new Worker("worker.js");
+    worker.onmessage = e => {
+      const m = e.data;
+      if (m.ready) status.style.display = "none";
+      if (m.error) { status.textContent = "Something went wrong: " + m.error; status.style.display = "flex"; console.error(m.error); }
+      if (m.leds) draw(m.leds, m.low);
+    };
+    worker.postMessage({ start: folder });
+  }
+
+  // Low light dims the LEDs, as the real Sense HAT's low_light setting does.
+  function draw(leds, low) {
+    const k = low ? 0.55 : 1;
+    for (let i = 0; i < 64; i++) {
+      const r = leds[i * 3], g = leds[i * 3 + 1], b = leds[i * 3 + 2];
+      if (r || g || b) {
+        const f = v => Math.min(255, Math.round(v * k) + 20);
+        cells[i].style.background = `rgb(${f(r)},${f(g)},${f(b)})`;
+        cells[i].style.boxShadow = `0 0 10px rgba(${f(r)},${f(g)},${f(b)},.6)`;
+      } else {
+        cells[i].style.background = "";
+        cells[i].style.boxShadow = "";
+      }
+    }
+  }
+
+  const held = new Set();
+  function press(dir, action) {
+    if (worker) worker.postMessage({ press: dir, action });
+    document.querySelectorAll(`.pad[data-dir="${dir}"]`).forEach(p => p.classList.toggle("down", action !== "released"));
+  }
+  const keys = { ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right", Enter: "middle", " ": "middle" };
+  addEventListener("keydown", e => {
+    const dir = keys[e.key];
+    if (!dir) return;
+    e.preventDefault();
+    press(dir, held.has(dir) ? "held" : "pressed");
+    held.add(dir);
+  });
+  addEventListener("keyup", e => {
+    const dir = keys[e.key];
+    if (!dir) return;
+    held.delete(dir);
+    press(dir, "released");
+  });
+  for (const pad of document.querySelectorAll(".pad")) {
+    const dir = pad.dataset.dir;
+    let repeat = null;
+    pad.addEventListener("pointerdown", e => {
+      e.preventDefault();
+      pad.setPointerCapture(e.pointerId);
+      press(dir, "pressed");
+      // Held on the board, the stick repeats like a held key.
+      repeat = setInterval(() => press(dir, "held"), 150);
+    });
+    for (const t of ["pointerup", "pointercancel", "lostpointercapture"])
+      pad.addEventListener(t, () => { if (repeat) { clearInterval(repeat); repeat = null; press(dir, "released"); } });
+  }
+
+  document.querySelectorAll(".games button").forEach(b => b.addEventListener("click", () => start(b.dataset.game)));
+  document.getElementById("restart").addEventListener("click", () => game && start(game));
+</script>
+</body>
+</html>
